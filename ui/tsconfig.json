@@ -3,6 +3,8 @@
     "target": "es2020",
     "module": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
+    // "outDir": "./dist",
+    // "rootDir": ".",
     "strict": true,
     "strictPropertyInitialization": false, // to enable generic constructors, e.g. on CircuitValue
     "skipLibCheck": true,
@@ -20,6 +22,7 @@
     "noEmit": true,
     "incremental": true,
     "resolveJsonModule": true,
+    "types": ["node", "express", "multer"],
     "jsx": "preserve",
     "paths": {
       "@/*": ["./src/*"]
@@ -30,6 +33,12 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

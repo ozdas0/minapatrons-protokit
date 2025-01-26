@@ -1,20 +1,20 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   webpack(config, { isServer }) {
     if (!isServer) {
       config.resolve.alias = {
         ...config.resolve.alias,
-        o1js: path.resolve(__dirname, 'node_modules/o1js/dist/web/index.js'),
+        o1js: path.resolve(__dirname, "node_modules/o1js/dist/web/index.js"),
       };
     } else {
-      config.externals.push('o1js') // https://nextjs.org/docs/app/api-reference/next-config-js/serverExternalPackages
+      config.externals.push("o1js"); // https://nextjs.org/docs/app/api-reference/next-config-js/serverExternalPackages
     }
     config.experiments = { ...config.experiments, topLevelAwait: true };
     config.optimization.minimizer = [];
@@ -25,15 +25,15 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
           {
-            key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
           },
           {
-            key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
+            key: "Cross-Origin-Embedder-Policy",
+            value: "require-corp",
           },
         ],
       },
@@ -42,7 +42,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  output: 'export',
+  output: "export",
   /* Used to serve the Next.js app from a subdirectory (the GitHub repo name) and
    * assetPrefix is used to serve assets (JS, CSS, images, etc.) from that subdirectory
    * when deployed to GitHub Pages. The assetPrefix needs to be added manually to any assets
@@ -50,8 +50,13 @@ const nextConfig = {
    * The 'ghp-postbuild.js' script in this project prepends the repo name to asset urls in the built css files
    * after running 'npm run deploy'.
    */
-  basePath: process.env.NODE_ENV === 'production' ? '/minapatrons-protokit' : '', // update if your repo name changes for 'npm run deploy' to work correctly
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/minapatrons-protokit/' : '', // update if your repo name changes for 'npm run deploy' to work correctly
+  basePath:
+    process.env.NODE_ENV === "production" ? "/minapatrons-protokit" : "", // update if your repo name changes for 'npm run deploy' to work correctly
+  assetPrefix:
+    process.env.NODE_ENV === "production" ? "/minapatrons-protokit/" : "", // update if your repo name changes for 'npm run deploy' to work correctly
 };
 
 export default nextConfig;
+
+// Using project name 'minapatrons-protokit' as the GitHub repository name.
+// Please update it in 'next.config.mjs' and 'pages/reactCOIServiceWorker.tsx' files if this is not correct or if it will be changed.
